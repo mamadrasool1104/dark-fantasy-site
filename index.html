@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>سایت دارک فانتزی | عمو رسول</title>
+  <!-- Persian Display & Text Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-0: #0b0f14;        /* پایه تیره */
+      --bg-1: #101722;        /* لایه دوم */
+      --ink: #eaf2ff;         /* متن اصلی */
+      --muted: #a9b3c7;       /* متن فرعی */
+      --primary: #8ab4ff;     /* آبی فانتزی */
+      --accent: #ff6ad5;      /* صورتی نئون */
+      --lime: #9aff6a;        /* سبز نئون */
+      --glass: rgba(255,255,255,.06);
+      --glass-stroke: rgba(255,255,255,.12);
+      --radius: 20px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0; background: radial-gradient(1200px 700px at 70% -10%, #1b2230 0%, transparent 60%),
+                         radial-gradient(900px 600px at 10% 110%, #1a1027 0%, transparent 60%),
+                         linear-gradient(180deg, #0a0f14 0%, #0a0f14 100%);
+      color: var(--ink); font-family: 'Vazirmatn', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Background stars canvas */
+    canvas#stars{ position: fixed; inset: 0; z-index: -2; filter: drop-shadow(0 0 4px rgba(255,255,255,.35)); }
+
+    /* Floating gradient blobs */
+    .blob{ position: fixed; width: 36vmax; height: 36vmax; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,106,213,.35), rgba(138,180,255,.25) 40%, rgba(0,0,0,0) 60%);
+      mix-blend-mode: screen; filter: blur(40px); z-index: -1; animation: float 16s ease-in-out infinite; }
+    .blob.b2{ left:-10vmax; top:10vmax; animation-duration: 22s; }
+    .blob.b1{ right:-8vmax; top:-6vmax; }
+    @keyframes float{ 0%,100%{ transform: translate(0,0) scale(1);} 50%{ transform: translate(3vmax, -2vmax) scale(1.08);} }
+
+    header{
+      padding: clamp(20px, 4vw, 40px) 24px 10px; text-align: center; position: relative;
+    }
+    .brand{
+      display:inline-flex; align-items: center; gap: 14px; padding: 10px 16px; border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid var(--glass-stroke); box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+    .orb{ width: 14px; height: 14px; border-radius:50%; background: radial-gradient(circle at 30% 30%, var(--accent), #7f3ea7);
+          animation: pulse 1.6s infinite ease-in-out; box-shadow: 0 0 18px var(--accent), 0 0 36px rgba(255,106,213,.4); }
+    @keyframes pulse{ 0%,100%{ transform: scale(1);} 50%{ transform: scale(1.18);} }
+
+    h1{
+      margin: 16px 0 0; font-family: 'Lalezar', cursive; font-weight: 400; letter-spacing: .5px;
+      font-size: clamp(40px, 8vw, 92px); line-height: 1.05;
+      text-shadow: 0 0 8px rgba(255,255,255,.15), 0 0 24px rgba(138,180,255,.35), 0 0 40px rgba(255,106,213,.25);
+      animation: neon-flicker 5s ease-in-out infinite;
+    }
+    @keyframes neon-flicker {
+      0%,19%,21%,23%,80%,100% { filter: brightness(1); }
+      20%,22% { filter: brightness(1.25); }
+      81% { filter: brightness(.9); }
+    }
+
+    .subtitle{ color: var(--muted); margin-top: 10px; font-size: clamp(14px, 2.1vw, 20px); }
+
+    nav{
+      margin: 26px auto 6px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+    }
+    .chip{
+      padding: 10px 14px; border-radius: 999px; border:1px solid var(--glass-stroke); background: var(--glass);
+      backdrop-filter: blur(6px); color: var(--ink); text-decoration:none; font-weight:600; transition: transform .25s ease, border-color .25s ease;
+    }
+    .chip:hover{ transform: translateY(-3px); border-color: rgba(255,106,213,.5); }
+
+    main{ max-width: 1100px; margin: 26px auto 80px; padding: 0 22px; }
+
+    .grid{ display:grid; grid-template-columns: repeat(12, 1fr); gap: 18px; }
+    .card{
+      grid-column: span 12; padding: 22px; border-radius: var(--radius); background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid var(--glass-stroke); box-shadow: var(--shadow); position: relative; overflow: hidden;
+    }
+    .card:before{ content:""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; background:
+      linear-gradient(130deg, rgba(138,180,255,.35), rgba(255,106,213,.4), rgba(154,255,106,.3));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; opacity:.35; pointer-events:none;
+    }
+    .card h3{ margin:0 0 12px; font-size: 22px; }
+    .card p{ color: var(--muted); margin: 6px 0 0; }
+
+    .col-span-6{ grid-column: span 6; }
+    .col-span-4{ grid-column: span 4; }
+
+    @media (max-width: 900px){ .col-span-6, .col-span-4{ grid-column: span 12; } }
+
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; padding: 12px 16px; border-radius: 14px; font-weight: 800;
+      border: 1px solid rgba(255,255,255,.22); background: linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.02));
+      color: var(--ink); text-decoration:none; box-shadow: var(--shadow); cursor: pointer; transition: transform .2s ease;
+    }
+    .btn:hover{ transform: translateY(-2px) scale(1.01); }
+
+    .sparkle{ position: absolute; width:6px; height:6px; border-radius:50%; background: white; pointer-events:none; opacity:.9; filter: drop-shadow(0 0 6px rgba(255,255,255,.8)); }
+    .tag{ font-size: 12px; font-weight:800; color: var(--primary); letter-spacing: .5px; }
+
+    footer{ text-align:center; color: var(--muted); padding: 60px 20px 30px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <canvas id="stars"></canvas>
+  <div class="blob b1" aria-hidden="true"></div>
+  <div class="blob b2" aria-hidden="true"></div>
+
+  <header>
+    <div class="brand"><span class="orb"></span><span class="tag">Dark • Fantasy • Neon</span></div>
+    <h1>عمو رسول</h1>
+    <p class="subtitle">یک وب‌سایت تیره با حال‌وهوای فانتزی، پر از افکت‌های لطیف و انیمیشن‌های بامزه ✨</p>
+    <nav>
+      <a class="chip" href="#about">درباره</a>
+      <a class="chip" href="#projects">پروژه‌ها</a>
+      <a class="chip" href="#contact">ارتباط</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="about" class="grid">
+      <div class="card col-span-6">
+        <h3>درباره من</h3>
+        <p>اینجا می‌تونی توضیح کوتاهی درباره خودت بنویسی. اگر دوست داشتی، مهارت‌ها، علایق و مسیرت رو اضافه کن. 
+          این کارت با یک قاب گرادیانی لطیف و نور نئون، حس فانتزی رو تقویت می‌کنه.</p>
+        <div style="margin-top:16px">
+          <button id="btnMagic" class="btn">جادو کن ✨</button>
+        </div>
+      </div>
+      <div class="card col-span-6">
+        <h3>مهارت‌ها</h3>
+        <p>HTML • CSS • JavaScript • UI/UX • انیمیشن</p>
+      </div>
+    </section>
+
+    <section id="projects" class="grid" style="margin-top:18px;">
+      <div class="card col-span-4">
+        <h3>پروژه ۱</h3>
+        <p>یک کارت نمونه برای معرفی پروژه‌هات. می‌تونی اسکرین‌شات و لینک مستقیم بذاری.</p>
+      </div>
+      <div class="card col-span-4">
+        <h3>پروژه ۲</h3>
+        <p>استفاده از افکت‌های شیشه‌ای (Glassmorphism) باعث زیبایی و خوانایی تو حالت دارک می‌شه.</p>
+      </div>
+      <div class="card col-span-4">
+        <h3>پروژه ۳</h3>
+        <p>این بخش رو هرطور دوست داری شخصی‌سازی کن—عنوان، توضیح، ویدیو، یا لینک گیت‌هاب.</p>
+      </div>
+    </section>
+
+    <section id="contact" class="grid" style="margin-top:18px;">
+      <div class="card col-span-12">
+        <h3>ارتباط</h3>
+        <p>برای همکاری یا گفتگو، اینجا راه‌های ارتباطی رو بگذار: ایمیل، اینستاگرام، تلگرام و ...</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    ساختهٔ ♥ توسط <strong>عمو رسول</strong>
+  </footer>
+
+  <script>
+    // ===== Animated starfield background (lightweight) =====
+    const canvas = document.getElementById('stars');
+    const ctx = canvas.getContext('2d');
+    let w, h, stars;
+    const STAR_COUNT = 180; // تعادل بین کیفیت و کارایی
+
+    function resize(){
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      stars = Array.from({length: STAR_COUNT}, () => ({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        z: Math.random()*1 + 0.2,
+        r: Math.random()*1.4 + 0.3,
+        vx: (Math.random()-.5)*.25,
+        vy: (Math.random()-.5)*.25
+      }));
+    }
+
+    function step(){
+      ctx.clearRect(0,0,w,h);
+      for(const s of stars){
+        s.x += s.vx; s.y += s.vy;
+        if(s.x<0) s.x=w; if(s.x>w) s.x=0; if(s.y<0) s.y=h; if(s.y>h) s.y=0;
+        ctx.globalAlpha = .6 + s.z*.4;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(${200+Math.floor(55*s.z)}, ${210+Math.floor(45*s.z)}, 255, 1)`;
+        ctx.fill();
+      }
+      requestAnimationFrame(step);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    step();
+
+    // ===== Sparkle burst on button click =====
+    const btn = document.getElementById('btnMagic');
+    btn?.addEventListener('click', (e)=>{
+      const rect = btn.getBoundingClientRect();
+      const cx = rect.left + rect.width/2;
+      const cy = rect.top + rect.height/2;
+      burst(cx, cy);
+    });
+
+    function burst(x,y){
+      const count = 22;
+      for(let i=0;i<count;i++){
+        const s = document.createElement('span');
+        s.className = 'sparkle';
+        document.body.appendChild(s);
+        const ang = (Math.PI*2)*(i/count) + Math.random()*.6;
+        const dist = 60 + Math.random()*60;
+        const size = 4 + Math.random()*6;
+        s.style.width = s.style.height = size + 'px';
+        s.style.left = x + 'px';
+        s.style.top = y + 'px';
+        s.style.background = i%3===0? 'var(--accent)': (i%3===1? 'var(--primary)':'var(--lime)');
+        s.animate([
+          { transform: 'translate(0,0) scale(1)', opacity: .95 },
+          { transform: `translate(${Math.cos(ang)*dist}px, ${Math.sin(ang)*dist}px) scale(.6)`, opacity: 0 }
+        ], { duration: 800 + Math.random()*400, easing:'cubic-bezier(.2,.7,.2,1)' })
+        .addEventListener('finish', ()=> s.remove());
+      }
+    }
+
+    // ===== Fun: tilt cards slightly on mouse move =====
+    const cards = document.querySelectorAll('.card');
+    document.addEventListener('mousemove', (e)=>{
+      for(const c of cards){
+        const r = c.getBoundingClientRect();
+        const rx = ((e.clientY - (r.top + r.height/2)) / r.height) * 6;
+        const ry = ((e.clientX - (r.left + r.width/2)) / r.width) * -6;
+        c.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      }
+    });
+    document.addEventListener('mouseleave', ()=>{
+      for(const c of cards){ c.style.transform = 'none'; }
+    });
+  </script>
+</body>
+</html>
