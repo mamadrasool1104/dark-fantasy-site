@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>عمو رسول</title>
-  <!-- Persian Fonts -->
+  <title>وبلاگ | عمو رسول</title>
   <link href="https://fonts.googleapis.com/css2?family=Lalezar&family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
@@ -19,8 +18,6 @@
       radial-gradient(900px 600px at 10% 110%, #131b26 0%, transparent 60%),
       linear-gradient(180deg, #0a0f14 0%, #0a0f14 100%);
       color:var(--ink);font-family:'Vazirmatn',system-ui;overflow-x:hidden}
-
-    /* Stars + blobs */
     canvas#stars{position:fixed;inset:0;z-index:-2;filter:drop-shadow(0 0 4px rgba(255,255,255,.35))}
     .blob{position:fixed;width:38vmax;height:38vmax;border-radius:50%;
       background:radial-gradient(circle at 30% 30%, rgba(154,255,106,.25), rgba(138,180,255,.25) 40%, rgba(0,0,0,0) 60%);
@@ -28,41 +25,44 @@
     .blob.b2{left:-12vmax;top:12vmax;animation-duration:22s}
     .blob.b1{right:-10vmax;top:-8vmax}
     @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(3vmax,-2vmax) scale(1.07)}}
-
     header{padding:clamp(20px,4vw,40px) 24px 10px;text-align:center}
     .brand{display:inline-flex;align-items:center;gap:14px;padding:10px 16px;border-radius:999px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--glass-stroke);box-shadow:var(--shadow);backdrop-filter:blur(6px)}
     .orb{width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 30% 30%, var(--lime), #47c74a);animation:pulse 1.6s infinite ease-in-out;box-shadow:0 0 18px var(--lime),0 0 36px rgba(154,255,106,.45)}
     @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
-
     h1{margin:16px 0 0;font-family:'Lalezar',cursive;font-weight:400;letter-spacing:.5px;font-size:clamp(40px,8vw,92px);line-height:1.05;text-shadow:0 0 10px rgba(154,255,106,.25),0 0 24px rgba(138,180,255,.35),0 0 40px rgba(255,106,213,.2)}
     .subtitle{color:var(--muted);margin-top:10px;font-size:clamp(14px,2.1vw,20px)}
-
     nav{margin:26px auto 6px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
     .chip{padding:10px 14px;border-radius:999px;border:1px solid var(--glass-stroke);background:var(--glass);backdrop-filter:blur(6px);color:var(--ink);text-decoration:none;font-weight:800;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
     .chip:hover{transform:translateY(-3px);border-color:rgba(154,255,106,.6);box-shadow:0 0 16px rgba(154,255,106,.25)}
-
     main{max-width:1180px;margin:26px auto 90px;padding:0 22px}
     .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
     .card{grid-column:span 12;padding:22px;border-radius:var(--radius);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--glass-stroke);box-shadow:var(--shadow);position:relative;overflow:hidden;transform-style:preserve-3d;transition:transform .2s ease}
     .card:before{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(130deg,rgba(154,255,106,.45),rgba(106,255,243,.35),rgba(255,106,213,.35));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.35;pointer-events:none}
     .card h3{margin:0 0 12px;font-size:22px}
     .card p{color:var(--muted);margin:6px 0 0}
-
-    .col-6{grid-column:span 6}
-    .col-4{grid-column:span 4}
-    .col-3{grid-column:span 3}
-    .col-12{grid-column:span 12}
-    @media (max-width: 1000px){.col-6,.col-4,.col-3{grid-column:span 12}}
-
+    .col-6{grid-column:span 6}.col-4{grid-column:span 4}.col-3{grid-column:span 3}.col-12{grid-column:span 12}
+    @media (max-width:1000px){.col-6,.col-4,.col-3{grid-column:span 12}}
     .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;font-weight:800;border:1px solid rgba(255,255,255,.22);background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.02));color:var(--ink);text-decoration:none;box-shadow:var(--shadow);cursor:pointer}
     .badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:var(--glass);border:1px solid var(--glass-stroke);font-size:12px}
     .row{display:flex;flex-wrap:wrap;gap:10px}
     .muted{color:var(--muted)}
     input[type="search"]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--glass-stroke);background:var(--glass);color:var(--ink)}
-    .channel{display:flex;flex-direction:column;gap:8px;padding:14px;border-radius:16px;border:1px solid var(--glass-stroke);background:var(--glass);transition:transform .2s ease, box-shadow .2s ease}
-    .channel:hover{transform:translateY(-3px);box-shadow:0 0 18px rgba(154,255,106,.2)}
-    .platform-tg{color:#64b5f6}.platform-ei{color:var(--lime)}
-
+    .channel-card{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:center;min-height:120px}
+    @media(max-width:560px){.channel-card{grid-template-columns:72px 1fr}}
+    .channel-avatar{width:96px;height:96px;border-radius:999px;background:radial-gradient(circle at 30% 30%, rgba(154,255,106,.8), rgba(106,255,243,.6));display:grid;place-items:center;border:1px solid var(--glass-stroke);box-shadow:0 0 16px rgba(154,255,106,.25);overflow:hidden}
+    @media(max-width:560px){.channel-avatar{width:72px;height:72px}}
+    .channel-avatar img{width:100%;height:100%;object-fit:cover}
+    .channel-avatar span{font-family:'Lalezar',cursive;font-size:28px;color:#0c141d;text-shadow:0 1px 0 rgba(255,255,255,.4)}
+    .channel-meta{display:flex;flex-direction:column;gap:8px}
+    .channel-title{font-weight:900;font-size:18px}
+    .channel-desc{color:var(--muted);font-size:14px;line-height:1.7}
+    .channel-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+    .platform-badge{font-size:12px;padding:6px 10px;border-radius:999px;background:var(--glass);border:1px solid var(--glass-stroke)}
+    .channel-actions{margin-top:8px}
+    .channel-actions .btn{font-size:13px;padding:10px 12px}
+    .media-frame{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--glass-stroke);background:rgba(255,255,255,.04);box-shadow:var(--shadow)}
+    .media-frame img{width:100%;height:auto;display:block}
+    .media-caption{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px;color:var(--muted);font-size:14px;border-top:1px solid var(--glass-stroke);background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01))}
     footer{text-align:center;color:var(--muted);padding:60px 20px 30px;font-size:14px}
   </style>
 </head>
@@ -70,7 +70,6 @@
   <canvas id="stars"></canvas>
   <div class="blob b1" aria-hidden="true"></div>
   <div class="blob b2" aria-hidden="true"></div>
-
   <header>
     <div class="brand"><span class="orb"></span><span class="tag">Dark • Fantasy • Neon</span></div>
     <h1>وبلاگ عمو رسول</h1>
@@ -82,9 +81,7 @@
       <a class="chip" href="#about">دربارهٔ من</a>
     </nav>
   </header>
-
   <main>
-    <!-- CHANNELS SECTION -->
     <section id="channels" class="grid">
       <div class="card col-6">
         <h3>کانال‌ها و آیدی‌ها</h3>
@@ -97,23 +94,17 @@
       </div>
       <div class="card col-6">
         <h3>راهنمای کوتاه</h3>
-        <p class="muted">برای هر کانال یک توضیح کوتاه بعداً اضافه می‌کنیم. فعلاً لینک‌ها و پلتفرم‌ها تنظیم شدند.</p>
+        <p class="muted">برای هر کانال یک توضیح کوتاه اضافه شده. اگر خواستی متن‌ها را تغییر می‌دهیم.</p>
       </div>
-
-      <!-- Telegram List -->
       <div class="card col-6" id="telegramList">
         <h3>کانال‌های تلگرام</h3>
         <div class="grid" id="tg-container"></div>
       </div>
-
-      <!-- Eitaa List -->
       <div class="card col-6" id="eitaaList">
         <h3>کانال‌های ایتا</h3>
         <div class="grid" id="ei-container"></div>
       </div>
     </section>
-
-    <!-- EITAIZ PROJECT SECTION -->
     <section id="eitaiz" class="grid" style="margin-top:18px;">
       <div class="card col-12">
         <h3>پروژهٔ «ایتایز»</h3>
@@ -131,19 +122,24 @@
             <h3>گزارش پیشرفت کوتاه</h3>
             <p id="eitaiz-progress">هستهٔ اولیه آماده شده، ماژول زمان‌بندی در حال تکمیل و صفحهٔ مدیریت کانال‌ها در دست طراحی است.</p>
           </div>
+          <div class="card col-12">
+            <h3>تصویر کاور ایتایز</h3>
+            <div class="media-frame">
+              <img src="assets/img/eitaiz_poster.jpg" alt="Eitaiz Poster">
+              <div class="media-caption">
+                <span>کاور رسمی پروژهٔ ایتایز</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-
-    <!-- BLOG SECTION -->
     <section id="blog" class="grid" style="margin-top:18px;">
       <div class="card col-12">
         <h3>یادداشت‌های وبلاگ</h3>
         <div id="posts" class="grid"></div>
       </div>
     </section>
-
-    <!-- ABOUT SECTION -->
     <section id="about" class="grid" style="margin-top:18px;">
       <div class="card col-12">
         <h3>دربارهٔ من</h3>
@@ -151,71 +147,69 @@
       </div>
     </section>
   </main>
-
   <footer>ساختهٔ ♥ توسط <strong>عمو رسول</strong></footer>
-
   <script>
-    // ===== Starfield =====
+    // Starfield
     const canvas=document.getElementById('stars');const ctx=canvas.getContext('2d');let w,h,stars;const STAR_COUNT=170;
     function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight;stars=Array.from({length:STAR_COUNT},()=>({x:Math.random()*w,y:Math.random()*h,z:Math.random()*1+.2,r:Math.random()*1.4+.3,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25}))}
     function step(){ctx.clearRect(0,0,w,h);for(const s of stars){s.x+=s.vx;s.y+=s.vy;if(s.x<0)s.x=w;if(s.x>w)s.x=0;if(s.y<0)s.y=h;if(s.y>h)s.y=0;ctx.globalAlpha=.6+s.z*.4;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(${190+~~(65*s.z)},${220+~~(25*s.z)},255,1)`;ctx.fill()}requestAnimationFrame(step)}
     addEventListener('resize',resize);resize();step();
 
-    // ===== Content Data (filled with your links) =====
     const PROFILE={ telegramId:'@Rasoolamr', eitaaId:'@Rasoolamr' };
 
-    // Channels (Telegram & Eitaa)
     const CHANNELS=[
       // Telegram
-      {platform:'Telegram', title:'عمو رسول', url:'https://t.me/+j0ryOc4Lr2I2ZjI8', desc:'—'},
-      {platform:'Telegram', title:'نور صنعت', url:'https://t.me/nour_sanat', desc:'—'},
-      // Eitaa specific pages (language posts)
-      {platform:'Eitaa', title:'زبان ایتایز – نسخهٔ راست‌چین', url:'https://eitaa.com/avay_khiyal/29864', desc:'—'},
-      {platform:'Eitaa', title:'زبان ایتایز – نسخهٔ چپ‌چین', url:'https://eitaa.com/Tech_nour/177', desc:'—'},
-      // Eitaa channels with tags that should point to eitaa.com base
-      {platform:'Eitaa', title:'تک نور (@Tech_nour)', url:'https://eitaa.com/Tech_nour', desc:'—'},
-      {platform:'Eitaa', title:'اوای خیال (@avay_khiyal)', url:'https://eitaa.com/avay_khiyal', desc:'—'},
-      {platform:'Eitaa', title:'آشوب درون (@Ashob_daron)', url:'https://eitaa.com/Ashob_daron', desc:'—'},
-      {platform:'Eitaa', title:'عاقبت چنل (@Aghebatt)', url:'https://eitaa.com/Aghebatt', desc:'—'}
+      {platform:'Telegram', title:'عمو رسول', url:'https://t.me/+fcmkw1TCK0xkMGU0', desc:'کانال رسمی عمو رسول در تلگرام.', avatarImg:'assets/img/tg_amo_rasool.png'},
+      {platform:'Telegram', title:'نور صنعت', url:'https://t.me/nour_sanat', desc:'خبرها و نکات فنی حوزهٔ صنعت.', avatarImg:'assets/img/tg_nour_sanat.png'},
+
+      // Eitaa – Eitaiz docs
+      {platform:'Eitaa', title:'زبان ایتایز – نسخهٔ راست‌چین', url:'https://eitaa.com/avay_khiyal/29864', desc:'مستند زبان ایتایز – چینش راست به چپ.', avatarImg:'assets/img/ei_avay_khiyal.png'},
+      {platform:'Eitaa', title:'زبان ایتایز – نسخهٔ چپ‌چین', url:'https://eitaa.com/Tech_nour/177', desc:'مستند زبان ایتایز – چینش چپ به راست.', avatarImg:'assets/img/ei_tech_nour.png'},
+
+      // Eitaa – Channels
+      {platform:'Eitaa', title:'تک نور (@Tech_nour)', url:'https://eitaa.com/Tech_nour', desc:'برای علاقه‌مندان به هوش مصنوعی و تکنولوژی‌های روز! 🤖🚀', avatarImg:'assets/img/ei_tech_nour.png'},
+      {platform:'Eitaa', title:'اوای خیال (@avay_khiyal)', url:'https://eitaa.com/avay_khiyal', desc:'دنیایی از خیال و احساس، پر از حرف‌هایی که از دل برمیاد 🌙✨', avatarImg:'assets/img/ei_avay_khiyal.png'},
+      {platform:'Eitaa', title:'آشوب درون (@Ashob_daron)', url:'https://eitaa.com/Ashob_daron', desc:'مکانی پر از متن‌هایی از جنس دلتنگی و ویرانی 🤒🥀', avatarImg:'assets/img/ei_ashob_daron.png'},
+      {platform:'Eitaa', title:'عاقبت چنل (@Aghebatt)', url:'https://eitaa.com/Aghebatt', desc:'مکانی برای تعقل و اندیشه دربارهٔ عاقبت اعمال‌مان 🤔🍁', avatarImg:'assets/img/ei_aghebatt.png'}
     ];
 
-    const POSTS=[
-      {title:'سلام دنیا!', date:'1404/07/07', excerpt:'اولین نوشتهٔ کوتاه من در وبلاگ. توضیحات کانال‌ها به زودی اضافه می‌شود.'}
-    ];
-
-    // ===== Renderers =====
     document.getElementById('tg-id').textContent=PROFILE.telegramId;
     document.getElementById('ei-id').textContent=PROFILE.eitaaId;
 
     function channelCard(c){
-      const a=document.createElement('a');a.href=c.url;a.target='_blank';a.rel='noopener';a.className='channel';
-      const plat=c.platform==='Telegram'?'<span class="platform-tg">تلگرام</span>':'<span class="platform-ei">ایتا</span>';
-      a.innerHTML=`<strong>${c.title}</strong><span class='muted'>پلتفرم: ${plat}</span><span class='muted'>${c.desc}</span>`;
-      return a;
+      const wrap=document.createElement('div');
+      wrap.className='card channel-card';
+      const left=document.createElement('div');
+      left.className='channel-avatar';
+      if(c.avatarImg){ left.innerHTML=`<img src="${c.avatarImg}" alt="${c.title}">`; } else { left.innerHTML=`<span>${(c.title||'')[0]||'C'}</span>`; }
+      const right=document.createElement('div'); right.className='channel-meta';
+      const top=document.createElement('div'); top.className='channel-top';
+      const title=document.createElement('div'); title.className='channel-title'; title.textContent=c.title;
+      const badge=document.createElement('span'); badge.className='platform-badge'; badge.innerHTML=c.platform==='Telegram'?'<span class="platform-tg">تلگرام</span>':'<span class="platform-ei">ایتا</span>';
+      top.appendChild(title); top.appendChild(badge);
+      const desc=document.createElement('div'); desc.className='channel-desc'; desc.textContent=c.desc||'';
+      const actions=document.createElement('div'); actions.className='channel-actions';
+      const btn=document.createElement('a'); btn.className='btn'; btn.href=c.url; btn.target='_blank'; btn.rel='noopener'; btn.textContent='مشاهده کانال';
+      actions.appendChild(btn);
+      right.appendChild(top); right.appendChild(desc); right.appendChild(actions);
+      wrap.appendChild(left); wrap.appendChild(right);
+      return wrap;
     }
 
     function renderChannels(filter=''){
       const tgC=document.getElementById('tg-container');
       const eiC=document.getElementById('ei-container');
       tgC.innerHTML=eiC.innerHTML='';
-      CHANNELS.filter(c=>c.title.includes(filter)||c.desc.includes(filter)).forEach(c=>{
-        (c.platform==='Telegram'?tgC:eiC).appendChild(channelCard(c));
-      });
+      CHANNELS.filter(c=>c.title.includes(filter)||c.desc.includes(filter))
+              .forEach(c=>{ (c.platform==='Telegram'?tgC:eiC).appendChild(channelCard(c)); });
     }
-    const search=document.getElementById('channelSearch');
-    search.addEventListener('input',()=>renderChannels(search.value.trim()));
+    const search=document.getElementById('channelSearch'); search.addEventListener('input',()=>renderChannels(search.value.trim()));
     renderChannels('');
 
-    function postCard(p){
-      const d=document.createElement('div');d.className='card';
-      d.innerHTML=`<h3>${p.title}</h3><p class='muted'>${p.date}</p><p>${p.excerpt}</p>`;return d;
-    }
-    const postWrap=document.getElementById('posts');POSTS.forEach(p=>postWrap.appendChild(postCard(p)));
-
-    // Subtle tilt interaction
+    // Tilt effect
     const cards=document.querySelectorAll('.card');
-    document.addEventListener('mousemove',e=>{for(const c of cards){const r=c.getBoundingClientRect();const rx=((e.clientY-(r.top+r.height/2))/r.height)*6;const ry=((e.clientX-(r.left+r.width/2))/r.width)*-6;c.style.transform=`perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg)`;}});
-    document.addEventListener('mouseleave',()=>{for(const c of cards) c.style.transform='none';});
+    document.addEventListener('mousemove',e=>{ for(const c of cards){ const r=c.getBoundingClientRect(); const rx=((e.clientY-(r.top+r.height/2))/r.height)*6; const ry=((e.clientX-(r.left+r.width/2))/r.width)*-6; c.style.transform=`perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg)`; } });
+    document.addEventListener('mouseleave',()=>{ for(const c of cards) c.style.transform='none'; });
   </script>
 </body>
 </html>
