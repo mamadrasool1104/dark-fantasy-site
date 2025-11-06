@@ -155,11 +155,11 @@
     function step(){ctx.clearRect(0,0,w,h);for(const s of stars){s.x+=s.vx;s.y+=s.vy;if(s.x<0)s.x=w;if(s.x>w)s.x=0;if(s.y<0)s.y=h;if(s.y>h)s.y=0;ctx.globalAlpha=.6+s.z*.4;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(${190+~~(65*s.z)},${220+~~(25*s.z)},255,1)`;ctx.fill()}requestAnimationFrame(step)}
     addEventListener('resize',resize);resize();step();
 
-    const PROFILE={ telegramId:'@Rasoolamr', eitaaId:'@Rasoolamr' };
+    const PROFILE={ telegramId:'https://t.me/Rasoolamr', eitaaId:'https://eitaa.com/Rasoolamr' };
 
     const CHANNELS=[
       // Telegram
-      {platform:'Telegram', title:'عمو رسول', url:'https://t.me/+fcmkw1TCK0xkMGU0', desc:'کانال رسمی عمو رسول در تلگرام.', avatarImg:'assets/img/tg_amo_rasool.png'},
+      {platform:'Telegram', title:'عمو رسول', url:'https://t.me/amoo_rasool', desc:'کانال شخصی عمو😉😂', avatarImg:'assets/img/tg_amo_rasool.png'},
       {platform:'Telegram', title:'نور صنعت', url:'https://t.me/nour_sanat', desc:'خبرها و نکات فنی حوزهٔ صنعت.', avatarImg:'assets/img/tg_nour_sanat.png'},
 
       // Eitaa – Eitaiz docs
