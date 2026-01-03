@@ -221,17 +221,17 @@
   addEventListener('resize',resize); resize(); step();
 
   const CHANNELS=[
-    {platform:'Telegram',title:'عمو رسول',url:'https://t.me/amoo_rasool',desc:'کانال شخصی عمو😉😂'},
-    {platform:'Telegram',title:'نور صنعت',url:'https://t.me/nour_sanat',desc:'خبرها و نکات فنی صنعت'},
-    {platform:'Eitaa',title:'تک‌ نور',url:'https://eitaa.com/Tech_nour',desc:'هوش مصنوعی و تکنولوژی 🤖'},
-    {platform:'Eitaa',title:'اوای خیال',url:'https://eitaa.com/avay_khiyal',desc:'متن‌های احساسی 🌙'},
+    {platform:'Telegram',title:'عمو رسول',url:'https://t.me/amoo_rasool',desc:'کانال شخصی عمو😉😂', image:'./assets/img/tg_amo_rasool.png'},
+    {platform:'Telegram',title:'نور صنعت',url:'https://t.me/nour_sanat',desc:'خبرها و نکات فنی صنعت', image:'./assets/img/tg_nour_sanat.png'},
+    {platform:'Eitaa',title:'تک‌ نور',url:'https://eitaa.com/Tech_nour',desc:'هوش مصنوعی و تکنولوژی 🤖', image:'./assets/img/ei_tech_nour.png'},
+    {platform:'Eitaa',title:'اوای خیال',url:'https://eitaa.com/avay_khiyal',desc:'متن‌های احساسی 🌙', image:'./assets/img/ei-avay-khiyal.png'},
   ];
 
   function channelCard(c){
     const d=document.createElement('div');
     d.className='channel-card';
     d.innerHTML=`
-      <div class="channel-avatar"></div>
+      <div class="channel-avatar"><img href="${c.image}"></div>
       <div class="channel-meta">
         <div class="channel-title">${c.title}</div>
         <div class="channel-desc">${c.desc}</div>
